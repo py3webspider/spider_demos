@@ -63,14 +63,15 @@ def get_images(json):
 
 
 def save_image(item):
-    img_path = 'img' + os.path.sep + item.get('title')
+    img_path = 'img' + os.path.sep + item.get('title').replace('|', '')
+    img_url = 'imgs'
     print(img_path)
-    if not os.path.exists(img_path):
-        os.makedirs(img_path)
+    if not os.path.exists(img_url):
+        os.makedirs(img_url)
     try:
         resp = requests.get(item.get('image'))
         if codes.ok == resp.status_code:
-            file_path = img_path + os.path.sep + '{file_name}.{file_suffix}'.format(
+            file_path = img_url + os.path.sep + '{file_name}.{file_suffix}'.format(
                 file_name=md5(resp.content).hexdigest(),
                 file_suffix='jpg')
             if not os.path.exists(file_path):
@@ -90,7 +91,7 @@ def main(offset):
 
 
 GROUP_START = 0
-GROUP_END = 9
+GROUP_END = 20
 
 if __name__ == '__main__':
     pool = Pool()
