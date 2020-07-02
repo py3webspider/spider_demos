@@ -21,6 +21,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 number = 0      # url索引
 count = 0       # 计数
 url_lst = []    # 列表：存储所有url
+url_lst.append('https://blog.csdn.net/Yuyh131/article/details/106574449')
+url_lst.append("https://blog.csdn.net/Yuyh131/article/details/103727321")
 stop1_url = 'https://blog.csdn.net/yuyh131/article/details/84847178'    # 加载过久url，跳过处理
 
 chrome_options = webdriver.ChromeOptions()
@@ -35,8 +37,11 @@ wait = WebDriverWait(browser, 10)
 def get_one_page(url):
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML,'
-                          + ' like Gecko) Chrome/65.0.3325.162 Safari/537.36'
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Content-Type': 'application/json',
+            'Origin': 'null',
+            'Referer': 'https://blog.csdn.net/Yuyh131',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
         }
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -102,13 +107,7 @@ if __name__ == '__main__':
     page = 5
     for i in range(1, page+1):
         main(offset=i)
-        time.sleep(3)
+        time.sleep(4)
 
     thread = threading.Thread(target=index_page)
     thread.start()
-
-
-
-
-
-
